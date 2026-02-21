@@ -1,4 +1,7 @@
-console.log("Hello World!");
+// Query Selectors
+const allJobsContainer = document.getElementById("all-jobs");
+const interviewContainer = document.getElementById("interview");
+const rejectedContainer = document.getElementById("rejected");
 
 const jobCards = [
   {
@@ -75,4 +78,34 @@ const jobCards = [
   },
 ];
 
-// console.log(jobCards);
+const content = jobCards
+  .map((jobCard) => {
+    return `
+    <div class="card bg-[#FFFFFF] shadow-md mb-5">
+      <div class="card-body">
+        <div class="flex justify-between items-center">
+          <h2 class="card-title">${jobCard.companyName}</h2>
+          <i
+            class="fa-solid fa-trash py-2 px-3 rounded-full hover:cursor-pointer hover:scale-105 hover:text-red-500 transition-all duration-300"
+          ></i>
+        </div>
+        <p class="text-[#5C5C5C]">${jobCard.position}</p>
+        <p class="text-[#5C5C5C]">
+          ${jobCard.location} • ${jobCard.type} • ${jobCard.salary}
+        </p>
+        <span
+          class="bg-[#EEF4FF] max-w-fit px-2 py-1 my-2 rounded-md font-bold"
+          >NOT APPLIED</span
+        >
+        <p>${jobCard.description}</p>
+        <div class="flex gap-2 pt-2">
+          <button class="btn btn-outline btn-success">INTERVIEW</button>
+          <button class="btn btn-outline btn-error">REJECTED</button>
+        </div>
+      </div>
+    </div>
+  `;
+  })
+  .join("");
+
+allJobsContainer.innerHTML = content;

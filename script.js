@@ -14,8 +14,9 @@ const rejectedPlaceHolderDiv = document.getElementById("rejectPlaceHolderDiv");
 // console.log(interviewPlaceHolderDiv);
 
 // Dashboard Counters
-const interviewCounter = document.getElementById("interviewCounter").innerText;
-const rejectedCounter = document.getElementById("rejectedCounter").innerText;
+const jobsCounter = document.getElementById("alljobsCounter");
+const interviewCounter = document.getElementById("interviewCounter");
+const rejectedCounter = document.getElementById("rejectedCounter");
 
 // console.log(interviewCounter);
 
@@ -146,10 +147,17 @@ function handleInterview(e) {
   // First e Jei Card Sheta Select Kora Hoitese
   const theCardItself = e.target.closest(".card");
 
+  // Card er Parent
+  const theAllJobsList = theCardItself.parentNode;
+
   // will check if theCardIteself parent div id is "allJobsContainer" or not
   if (theCardItself.parentNode.id === "all-jobs") {
+    interviewCounter.innerHTML = `${Number(interviewCounter.innerText) + 1}`;
+    allJobsCounter.innerHTML = `${Number(allJobsCounter.innerText) - 1}`;
     interviewTabsCounter.innerText = `${Number(interviewTabsCounter.innerText) + 1}`;
   } else if (theCardItself.parentNode.id === "rejected") {
+    rejectedCounter.innerText = `${Number(rejectedCounter.innerText) - 1}`;
+    interviewCounter.innerHTML = `${Number(interviewCounter.innerText) + 1}`;
     rejectedTabsCounter.innerText = `${Number(rejectedTabsCounter.innerText) - 1}`;
     interviewTabsCounter.innerText = `${Number(interviewTabsCounter.innerText) + 1}`;
   }
@@ -161,7 +169,7 @@ function handleInterview(e) {
   interviewContainer.appendChild(theCardItself);
 
   // 3. Jobs Counter ta update kore dibo - All Jobs Tab Theke Counter er Value EK kore komtese
-  allJobsCounter.innerText = `${Number(allJobsCounter.innerText) - 1}`;
+  // allJobsCounter.innerText = `${Number(allJobsCounter.innerText) - 1}`;
   // 4. Header Dashboard ta Update kore dibo for Counts - Interview Counter ta EK kore bartese
 
   // Checking if there is any jobs in the Interview Tab Currently or else we put on the placeholder again for Both Tabs
@@ -177,8 +185,6 @@ function handleInterview(e) {
     rejectedPlaceHolderDiv.classList.remove("hidden");
   }
 
-  // const theAllJobsList = theCardItself.parentNode;
-
   // theAllJobsList.removeChild(theCardItself);
 
   // console.log(theCardItself);
@@ -189,10 +195,17 @@ function handleReject(e) {
   // First e Jei Card Sheta Select Kora Hoitese
   const theCardItself = e.target.closest(".card");
 
+  // Card er Parent
+  const theAllJobsList = theCardItself.parentNode;
+
   // will check if theCardIteself parent div id is "allJobsContainer" or not
   if (theCardItself.parentNode.id === "all-jobs") {
+    rejectedCounter.innerHTML = `${Number(rejectedCounter.innerText) + 1}`;
+    allJobsCounter.innerHTML = `${Number(allJobsCounter.innerText) - 1}`;
     rejectedTabsCounter.innerText = `${Number(rejectedTabsCounter.innerText) + 1}`;
   } else if (theCardItself.parentNode.id === "interview") {
+    rejectedCounter.innerHTML = `${Number(rejectedCounter.innerText) + 1}`;
+    interviewCounter.innerHTML = `${Number(interviewCounter.innerText) - 1}`;
     rejectedTabsCounter.innerText = `${Number(rejectedTabsCounter.innerText) + 1}`;
     interviewTabsCounter.innerText = `${Number(interviewTabsCounter.innerText) - 1}`;
   }

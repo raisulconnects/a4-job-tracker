@@ -2,7 +2,18 @@
 const allJobsContainer = document.getElementById("all-jobs");
 const interviewContainer = document.getElementById("interview");
 const rejectedContainer = document.getElementById("rejected");
+const statusBadge = document.getElementById("status");
 
+// Dashboard Counters
+const interviewCounter = document.getElementById("interviewCounter").innerText;
+const rejectedCounter = document.getElementById("rejectedCounter").innerText;
+
+console.log(Number(interviewCounter + 1));
+console.log(Number(rejectedCounter + 1));
+
+const allJobsCounter = document.getElementById("all-jobs-count");
+
+// The Job Object
 const jobCards = [
   {
     companyName: "TechCorp Solutions",
@@ -78,6 +89,9 @@ const jobCards = [
   },
 ];
 
+// Jobs Counter Er Jonne Jobs Length
+let jobCounter = jobCards.length;
+
 const content = jobCards
   .map((jobCard) => {
     return `
@@ -94,13 +108,13 @@ const content = jobCards
           ${jobCard.location} • ${jobCard.type} • ${jobCard.salary}
         </p>
         <span
-          class="bg-[#EEF4FF] max-w-fit px-2 py-1 my-2 rounded-md font-bold"
+          class="bg-[#EEF4FF] max-w-fit px-2 py-1 my-2 rounded-md font-bold" id="status"
           >NOT APPLIED</span
         >
         <p>${jobCard.description}</p>
         <div class="flex gap-2 pt-2">
-          <button class="btn btn-outline btn-success">INTERVIEW</button>
-          <button class="btn btn-outline btn-error">REJECTED</button>
+          <button class="btn btn-outline btn-success" onclick="handleInterview(event)">INTERVIEW</button>
+          <button class="btn btn-outline btn-error" onclick="handleReject(event)">REJECTED</button>
         </div>
       </div>
     </div>
@@ -108,4 +122,39 @@ const content = jobCards
   })
   .join("");
 
+// console.log(content);
+console.log(jobCards.length);
 allJobsContainer.innerHTML = content;
+
+function handleInterview(e) {
+  // First e Jei Card Sheta Select Kora Hoitese
+  const theCardItself = e.target.closest(".card");
+
+  // Todo
+  // 1. NOT APPLIED Status ta age update korbo content er
+  theCardItself.querySelector("#status").innerText = "INTERVIEW";
+  // 2. Ekhane Amra Jeta Target Korsi, sheta remove kortesi Interview list theke and then Interview div e diye ditesi, we can use appendChild here as it moves the target already.
+  interviewContainer.appendChild(theCardItself);
+  // 3. Jobs Counter ta update kore dibo
+  allJobsCounter.innerText = `${jobCounter - 1} Jobs`;
+  // 4. Header Dashboard ta Update kore dibo for Counts
+
+  const theAllJobsList = theCardItself.parentNode;
+
+  // theAllJobsList.removeChild(theCardItself);
+
+  // console.log(theCardItself);
+  // console.log(theAllJobsList);
+}
+
+function handleReject(e) {
+  // First e Jei Card Sheta Select Kora Hoitese
+  const theCardItself = e.target.closest(".card");
+
+  // Todo
+  // 1. NOT APPLIED Status ta age update korbo content er
+  theCardItself.querySelector("#status").innerText = "REJECTED";
+
+  // Reject Button e CLick korle we move the thing to Reject Div
+  rejectedContainer.appendChild(theCardItself);
+}

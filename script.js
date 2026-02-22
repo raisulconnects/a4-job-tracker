@@ -4,14 +4,30 @@ const interviewContainer = document.getElementById("interview");
 const rejectedContainer = document.getElementById("rejected");
 const statusBadge = document.getElementById("status");
 
+const interviewPlaceHolderDiv = document.getElementById(
+  "interviewPlaceHolderDiv",
+);
+const rejectedPlaceHolderDiv = document.getElementById("rejectPlaceHolderDiv");
+
+// console.log(rejectedPlaceHolderDiv);
+
+// console.log(interviewPlaceHolderDiv);
+
 // Dashboard Counters
 const interviewCounter = document.getElementById("interviewCounter").innerText;
 const rejectedCounter = document.getElementById("rejectedCounter").innerText;
 
-console.log(Number(interviewCounter + 1));
-console.log(Number(rejectedCounter + 1));
+// console.log(interviewCounter);
 
-const allJobsCounter = document.getElementById("all-jobs-count");
+// console.log(Number(interviewCounter + 1));
+// console.log(Number(rejectedCounter + 1));
+
+// Available Jobs Container er inside er tab gular jobs counter
+const allJobsCounter = document.getElementById("all-jobs-counter");
+const interviewTabsCounter = document.getElementById("interview-tabs-Counter");
+const rejectedTabsCounter = document.getElementById("rejected-tabs-Counter");
+
+// console.log(typeof allJobsCounter);
 
 // The Job Object
 const jobCards = [
@@ -123,23 +139,45 @@ const content = jobCards
   .join("");
 
 // console.log(content);
-console.log(jobCards.length);
+// console.log(jobCards.length);
 allJobsContainer.innerHTML = content;
 
 function handleInterview(e) {
   // First e Jei Card Sheta Select Kora Hoitese
   const theCardItself = e.target.closest(".card");
 
+  // will check if theCardIteself parent div id is "allJobsContainer" or not
+  if (theCardItself.parentNode.id === "all-jobs") {
+    interviewTabsCounter.innerText = `${Number(interviewTabsCounter.innerText) + 1}`;
+  } else if (theCardItself.parentNode.id === "rejected") {
+    rejectedTabsCounter.innerText = `${Number(rejectedTabsCounter.innerText) - 1}`;
+    interviewTabsCounter.innerText = `${Number(interviewTabsCounter.innerText) + 1}`;
+  }
+
   // Todo
   // 1. NOT APPLIED Status ta age update korbo content er
   theCardItself.querySelector("#status").innerText = "INTERVIEW";
   // 2. Ekhane Amra Jeta Target Korsi, sheta remove kortesi Interview list theke and then Interview div e diye ditesi, we can use appendChild here as it moves the target already.
   interviewContainer.appendChild(theCardItself);
-  // 3. Jobs Counter ta update kore dibo
-  allJobsCounter.innerText = `${jobCounter - 1} Jobs`;
-  // 4. Header Dashboard ta Update kore dibo for Counts
 
-  const theAllJobsList = theCardItself.parentNode;
+  // 3. Jobs Counter ta update kore dibo - All Jobs Tab Theke Counter er Value EK kore komtese
+  allJobsCounter.innerText = `${Number(allJobsCounter.innerText) - 1}`;
+  // 4. Header Dashboard ta Update kore dibo for Counts - Interview Counter ta EK kore bartese
+
+  // Checking if there is any jobs in the Interview Tab Currently or else we put on the placeholder again for Both Tabs
+  if (Number(interviewTabsCounter.innerText) > 0) {
+    interviewPlaceHolderDiv.classList.add("hidden");
+  } else {
+    interviewPlaceHolderDiv.classList.remove("hidden");
+  }
+
+  if (Number(rejectedTabsCounter.innerText) > 0) {
+    rejectedPlaceHolderDiv.classList.add("hidden");
+  } else {
+    rejectedPlaceHolderDiv.classList.remove("hidden");
+  }
+
+  // const theAllJobsList = theCardItself.parentNode;
 
   // theAllJobsList.removeChild(theCardItself);
 
@@ -151,10 +189,31 @@ function handleReject(e) {
   // First e Jei Card Sheta Select Kora Hoitese
   const theCardItself = e.target.closest(".card");
 
+  // will check if theCardIteself parent div id is "allJobsContainer" or not
+  if (theCardItself.parentNode.id === "all-jobs") {
+    rejectedTabsCounter.innerText = `${Number(rejectedTabsCounter.innerText) + 1}`;
+  } else if (theCardItself.parentNode.id === "interview") {
+    rejectedTabsCounter.innerText = `${Number(rejectedTabsCounter.innerText) + 1}`;
+    interviewTabsCounter.innerText = `${Number(interviewTabsCounter.innerText) - 1}`;
+  }
+
   // Todo
   // 1. NOT APPLIED Status ta age update korbo content er
   theCardItself.querySelector("#status").innerText = "REJECTED";
 
   // Reject Button e CLick korle we move the thing to Reject Div
   rejectedContainer.appendChild(theCardItself);
+
+  // Checking if there is any jobs in the Interview Tab Currently or else we put on the placeholder again for Both Tabs
+  if (Number(interviewTabsCounter.innerText) > 0) {
+    interviewPlaceHolderDiv.classList.add("hidden");
+  } else {
+    interviewPlaceHolderDiv.classList.remove("hidden");
+  }
+
+  if (Number(rejectedTabsCounter.innerText) > 0) {
+    rejectedPlaceHolderDiv.classList.add("hidden");
+  } else {
+    rejectedPlaceHolderDiv.classList.remove("hidden");
+  }
 }

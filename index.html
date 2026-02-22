@@ -63,7 +63,6 @@
       <section>
         <div class="flex justify-between p-2">
           <h1 class="text-[20px] font-bold">Available Jobs</h1>
-          <p class="text-[20px] font-semibold" id="all-jobs-count">8 Jobs</p>
         </div>
 
         <div>
@@ -78,6 +77,11 @@
             />
             <div class="tab-content bg-base-100 py-6 px-3">
               <!-- This is the ALL Jobs Container -->
+              <p class="text-[20px] font-semibold text-end">
+                <span id="all-jobs-counter">8</span>
+                Jobs
+              </p>
+
               <div id="all-jobs">
                 <!-- This is one Card of a JOB -->
                 <!-- <div class="card bg-[#FFFFFF] shadow-md mb-5">
@@ -152,7 +156,20 @@
               aria-label="Interview"
             />
             <div class="tab-content bg-base-100 py-6 px-3">
-              <div id="interview"></div>
+              <p class="text-[20px] font-semibold text-end">
+                <span id="interview-tabs-Counter">0</span>
+                Jobs
+              </p>
+              <div id="interview">
+                <div
+                  id="interviewPlaceHolderDiv"
+                  class="flex flex-col justify-center items-center gap-4 bg-base-100 border border-gray-200 rounded-lg p-4 shadow-sm py-20 my-10"
+                >
+                  <img src="./images/jobs.png" alt="" />
+                  <h1 class="text-[24px] font-bold">No Jobs Found</h1>
+                  <p>Check back soon for new Job Opportunities</p>
+                </div>
+              </div>
             </div>
 
             <input
@@ -162,7 +179,20 @@
               aria-label="Rejected"
             />
             <div class="tab-content bg-base-100 py-6 px-3">
-              <div id="rejected"></div>
+              <p class="text-[20px] font-semibold text-end">
+                <span id="rejected-tabs-Counter">0</span>
+                Jobs
+              </p>
+              <div id="rejected">
+                <div
+                  id="rejectPlaceHolderDiv"
+                  class="flex flex-col justify-center items-center gap-4 bg-base-100 border border-gray-200 rounded-lg p-4 shadow-sm py-20 my-10"
+                >
+                  <img src="./images/jobs.png" alt="" />
+                  <h1 class="text-[24px] font-bold">No Jobs Found</h1>
+                  <p>Check back soon for new Job Opportunities</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

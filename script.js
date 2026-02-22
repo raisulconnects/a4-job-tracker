@@ -117,7 +117,7 @@ const content = jobCards
         <div class="flex justify-between items-center">
           <h2 class="card-title">${jobCard.companyName}</h2>
           <i
-            class="fa-solid fa-trash py-2 px-3 rounded-full hover:cursor-pointer hover:scale-105 hover:text-red-500 transition-all duration-300"
+            class="fa-solid fa-trash py-2 px-3 rounded-full hover:cursor-pointer hover:scale-105 hover:text-red-500 transition-all duration-300" onclick="handleDelete(event)"
           ></i>
         </div>
         <p class="text-[#5C5C5C]">${jobCard.position}</p>
@@ -142,6 +142,45 @@ const content = jobCards
 // console.log(content);
 // console.log(jobCards.length);
 allJobsContainer.innerHTML = content;
+
+function handleDelete(e) {
+  const theCardItself = e.target.closest(".card");
+
+  jobsCounter.innerHTML = `${Number(jobsCounter.innerText) - 1}`;
+
+  if (theCardItself.parentNode.id === "interview") {
+    interviewCounter.innerHTML = `${Number(interviewCounter.innerText) - 1}`;
+    interviewTabsCounter.innerText = `${Number(interviewTabsCounter.innerText) - 1}`;
+  } else if (theCardItself.parentNode.id === "rejected") {
+    rejectedCounter.innerHTML = `${Number(rejectedCounter.innerText) - 1}`;
+    rejectedTabsCounter.innerText = `${Number(rejectedTabsCounter.innerText) - 1}`;
+  } else if (theCardItself.parentNode.id === "all-jobs") {
+    allJobsCounter.innerHTML = `${Number(allJobsCounter.innerText) - 1}`;
+    // allJobsTabsCounter.innerText = `${Number(allJobsTabsCounter.innerText) - 1}`;
+  }
+
+  // Removing the card from the DOM
+  theCardItself.remove();
+
+  // Ensuring that if there is nothing on a particular tab tokhon placeholder div show korbe
+  if (Number(interviewTabsCounter.innerText) > 0) {
+    interviewPlaceHolderDiv.classList.add("hidden");
+  } else {
+    interviewPlaceHolderDiv.classList.remove("hidden");
+  }
+
+  if (Number(rejectedTabsCounter.innerText) > 0) {
+    rejectedPlaceHolderDiv.classList.add("hidden");
+  } else {
+    rejectedPlaceHolderDiv.classList.remove("hidden");
+  }
+
+  if (Number(allJobsTabsCounter.innerText) > 0) {
+    allJobsPlaceHolderDiv.classList.add("hidden");
+  } else {
+    allJobsPlaceHolderDiv.classList.remove("hidden");
+  }
+}
 
 function handleInterview(e) {
   // First e Jei Card Sheta Select Kora Hoitese

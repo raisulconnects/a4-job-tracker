@@ -4,6 +4,10 @@ const interviewContainer = document.getElementById("interview");
 const rejectedContainer = document.getElementById("rejected");
 const statusBadge = document.getElementById("status");
 
+// Query Selector For Buttons
+const interviewBtn = document.getElementById("interviewBtn");
+const rejectBtn = document.getElementById("rejectBtn");
+
 const interviewPlaceHolderDiv = document.getElementById(
   "interviewPlaceHolderDiv",
 );
@@ -130,8 +134,8 @@ const content = jobCards
         >
         <p>${jobCard.description}</p>
         <div class="flex gap-2 pt-2">
-          <button class="btn btn-outline btn-success" onclick="handleInterview(event)">INTERVIEW</button>
-          <button class="btn btn-outline btn-error" onclick="handleReject(event)">REJECTED</button>
+          <button id='interviewBtn' class="btn btn-outline btn-success" onclick="handleInterview(event)">INTERVIEW</button>
+          <button id='rejectBtn' class="btn btn-outline btn-error" onclick="handleReject(event)">REJECTED</button>
         </div>
       </div>
     </div>
@@ -186,15 +190,26 @@ function handleInterview(e) {
   // First e Jei Card Sheta Select Kora Hoitese
   const theCardItself = e.target.closest(".card");
 
+  // Select Interview & reject button of this card
+  const interviewBtn = theCardItself.querySelector("#interviewBtn");
+  const rejectBtn = theCardItself.querySelector("#rejectBtn");
+
   // Card er Parent
   const theAllJobsList = theCardItself.parentNode;
 
   // will check if theCardIteself parent div id is "allJobsContainer" or not
   if (theCardItself.parentNode.id === "all-jobs") {
+    // Make the interview button disabled
+    interviewBtn.disabled = true;
+
     interviewCounter.innerHTML = `${Number(interviewCounter.innerText) + 1}`;
     allJobsCounter.innerHTML = `${Number(allJobsCounter.innerText) - 1}`;
     interviewTabsCounter.innerText = `${Number(interviewTabsCounter.innerText) + 1}`;
   } else if (theCardItself.parentNode.id === "rejected") {
+    // Make the interview button disabled
+    interviewBtn.disabled = true;
+    rejectBtn.disabled = false;
+
     rejectedCounter.innerText = `${Number(rejectedCounter.innerText) - 1}`;
     interviewCounter.innerHTML = `${Number(interviewCounter.innerText) + 1}`;
     rejectedTabsCounter.innerText = `${Number(rejectedTabsCounter.innerText) - 1}`;
@@ -234,15 +249,27 @@ function handleReject(e) {
   // First e Jei Card Sheta Select Kora Hoitese
   const theCardItself = e.target.closest(".card");
 
+  // Select Interview & reject button of this card
+  const interviewBtn = theCardItself.querySelector("#interviewBtn");
+  const rejectBtn = theCardItself.querySelector("#rejectBtn");
+
   // Card er Parent
   const theAllJobsList = theCardItself.parentNode;
 
   // will check if theCardIteself parent div id is "allJobsContainer" or not
   if (theCardItself.parentNode.id === "all-jobs") {
+    // Make the reject button disabled
+    rejectBtn.disabled = true;
+    interviewBtn.disabled = false;
+
     rejectedCounter.innerHTML = `${Number(rejectedCounter.innerText) + 1}`;
     allJobsCounter.innerHTML = `${Number(allJobsCounter.innerText) - 1}`;
     rejectedTabsCounter.innerText = `${Number(rejectedTabsCounter.innerText) + 1}`;
   } else if (theCardItself.parentNode.id === "interview") {
+    // Make the reject button disabled
+    rejectBtn.disabled = true;
+    interviewBtn.disabled = false;
+
     rejectedCounter.innerHTML = `${Number(rejectedCounter.innerText) + 1}`;
     interviewCounter.innerHTML = `${Number(interviewCounter.innerText) - 1}`;
     rejectedTabsCounter.innerText = `${Number(rejectedTabsCounter.innerText) + 1}`;

@@ -218,7 +218,10 @@ function handleInterview(e) {
 
   // Todo
   // 1. NOT APPLIED Status ta age update korbo content er
+  // Change the status bg color
   theCardItself.querySelector("#status").innerText = "INTERVIEW";
+  theCardItself.querySelector("#status").classList.remove("bg-red-300");
+  theCardItself.querySelector("#status").classList.add("bg-green-300");
   // 2. Ekhane Amra Jeta Target Korsi, sheta remove kortesi Interview list theke and then Interview div e diye ditesi, we can use appendChild here as it moves the target already.
   interviewContainer.appendChild(theCardItself);
 
@@ -279,6 +282,8 @@ function handleReject(e) {
   // Todo
   // 1. NOT APPLIED Status ta age update korbo content er
   theCardItself.querySelector("#status").innerText = "REJECTED";
+  theCardItself.querySelector("#status").classList.remove("bg-green-300");
+  theCardItself.querySelector("#status").classList.add("bg-red-300");
 
   // Reject Button e CLick korle we move the thing to Reject Div
   rejectedContainer.appendChild(theCardItself);
